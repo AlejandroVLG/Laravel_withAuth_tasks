@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,11 @@ Route::group(["middleware" => "jwt.auth"], function () {
     
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
+});
+
+Route::group(["middleware" => "jwt.auth"], function () {
+    
+    Route::post('/tasks', [TaskController::class, 'createTask']);
+    Route::get('/tasks', [TaskController::class, 'getTaskById']);
+
 });
