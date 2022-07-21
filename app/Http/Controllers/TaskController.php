@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
-{   
+{
 
-    public function getTaskById()
+    public function getAllTasksByUserId()
     {
         try {
 
-            Log::info("Getting all Tasks");
+            Log::info("Getting all Tasks by id");
 
             $userId = auth()->user()->id;
 
-            $tasks = Task::find($userId)->get()->where('user_id','=',$userId)->toArray();
+            $tasks = Task::query()->where('user_id', '=', $userId)->get()->toArray();
 
             return response()->json(
                 [
