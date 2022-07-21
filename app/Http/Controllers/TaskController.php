@@ -205,5 +205,48 @@ class TaskController extends Controller
         }
     }
 
-    
+    public function deleteTask($id)
+    {
+        try {
+            Log::info('Deleting task');
+
+            $userId = auth()->user()->id;
+
+            $task = Task::query()
+                ->where('user_id', '=', $userId)
+                ->find($id);
+
+            if (!$task) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => "Task doesn't exists"
+                    ],
+                    404
+                );
+            }
+
+            $task->delete($id);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "Task " . $id . " deleted"
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+
+            Log::error("Error deleting the task: " . $exception->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error deleting the task"
+                ],
+                500
+            );
+        }
+    }
+
 }

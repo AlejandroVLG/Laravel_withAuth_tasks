@@ -31,5 +31,6 @@ Route::group(["middleware" => "jwt.auth"], function () {
     Route::get('/tasks', [TaskController::class, 'getAllTasksByUserId']);
     Route::get('/tasks/{id}', [TaskController::class, 'getTaskById']);
     Route::put('/tasks/{id}', [TaskController::class, 'updateTask']);
+    Route::delete('/tasks/{id}', [TaskController::class, 'deleteTask']);
 
 });
