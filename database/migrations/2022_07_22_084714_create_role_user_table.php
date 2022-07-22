@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->boolean('status')->default(false);
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('role_user');
     }
 };
